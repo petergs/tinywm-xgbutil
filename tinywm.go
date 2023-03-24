@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"os/exec"
 
 	"github.com/BurntSushi/xgb/xproto"
 	"github.com/BurntSushi/xgbutil"
@@ -26,14 +25,6 @@ func main() {
 	focused.Geometry()
 
 	keybind.Initialize(X)
-	keybind.KeyPressFun(
-		func(X *xgbutil.XUtil, e xevent.KeyPressEvent) {
-			cmd := exec.Command("alacritty")
-			err := cmd.Start()
-			if err != nil {
-				log.Fatal(err)
-			}
-		}).Connect(X, X.RootWin(), "Mod1-k", true)
 	keybind.KeyPressFun(
 		func(X *xgbutil.XUtil, e xevent.KeyPressEvent) {
 			focused = xwindow.New(X, e.Child)
